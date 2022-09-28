@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 01:29:09 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/29 00:37:13 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/09/29 01:11:10 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,28 +71,17 @@ int	ft_printf(const char *format, ...)
 		}
 		if (!format[i])
 			break ;
-		if (format[++i] == '%')
+		++i;
+		if (format[i] == '%')
 			flag_c('%', &len);
 		else
+		{
 			indexof = index_of_key(ptr, format[i]);
-		if (indexof >= 0)
-			ptr[indexof].func(va_arg(args_infos, void *), &len);
+			if (indexof >= 0)
+				ptr[indexof].func(va_arg(args_infos, void *), &len);
+		}
 		i++;
 	}
 	va_end(args_infos);
 	return (len);
 }
-
-// int main(void)
-// {
-// 	int res = ft_printf("%%%c", '%');
-//     ft_printf("\n");
-// 	int res2 = printf("%%%c", '%');
-// 	printf("\n\nres: %d\nres2: %d\n", res, res2);
-
-// 	// int res = ft_printf("%p", &a);
-// 	// ft_printf("\n%d\n", res);
-// 	// int res2 = printf("%p", &a);
-// 	// printf("\n%d", res2);
-//     return (0);
-// }
