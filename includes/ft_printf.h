@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 21:50:36 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/29 00:49:45 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/09/29 01:14:22 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-# define SIZEFUNC	10
+# define SIZEFUNC	9
 # define UPPERHEXA	"0123456789ABCDEF"
 # define LOWERHEXA	"0123456789abcdef"
 # define HEXABASE	16
