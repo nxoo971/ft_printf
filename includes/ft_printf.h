@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 21:50:36 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/29 00:28:20 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/09/29 00:49:45 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,16 @@ void	flag_i(int n, int *len);
 void	flag_x(unsigned int n, int *len);
 void	flag_bigx(unsigned int n, int *len);
 void	flag_u(unsigned int n, int *len);
-void	flag_p(unsigned long cptr, int *len);
+void	flag_p(unsigned long int cptr, int *len);
 // xflags
 void	divide_n_apply_f(int n, int base, void (*f)(int), int *len);
-void	divide_n_apply_f2(unsigned long n, int base, void (*f)(int), int *len);
+void	divide_n_apply_f2(unsigned long int n, int base, \
+							void (*f)(int), int *len);
 // sflags
 void	put_d(int n);
 void	put_x(unsigned int n);
 void	put_bigx(unsigned int n);
-void	put_p(unsigned long n);
+void	put_p(unsigned long int n);
 void	put_u(unsigned int n);
 
 #endif

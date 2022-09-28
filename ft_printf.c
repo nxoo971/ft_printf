@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 01:29:09 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/29 00:23:48 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/09/29 00:37:13 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_tfunc(t_func (*ptr)[SIZEFUNC])
 	(*ptr)[2].c = 'd';
 	(*ptr)[3].func = (void *)&flag_x;
 	(*ptr)[3].c = 'x';
-	(*ptr)[4].func = (void *)&flag_X;
+	(*ptr)[4].func = (void *)&flag_bigx;
 	(*ptr)[4].c = 'X';
 	(*ptr)[5].func = (void *)&flag_u;
 	(*ptr)[5].c = 'u';
