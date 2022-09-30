@@ -1,43 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags.c                                            :+:      :+:    :+:   */
+/*   puts.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 02:03:21 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/29 00:58:49 by nxoo             ###   ########.fr       */
+/*   Created: 2022/09/29 22:26:55 by nxoo              #+#    #+#             */
+/*   Updated: 2022/09/30 21:08:32 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "includes/ft_printf.h"
+#include "ft_printf.h"
 
-void	flag_c(int c, int *len)
+void	put_integer(intptr_t c)
 {
-	ft_putchar_fd(c, 1);
-	*len += 1;
+	ft_putchar(c + '0');
 }
 
-void	flag_s(char *s, int *len)
+void	put_unsigned(uintptr_t c)
 {
-	int	i;
-
-	if (!s)
-		s = "(null)";
-	i = 0;
-	while (s[i])
-		i++;
-	write(1, s, i);
-	*len += i;
+	ft_putchar(c + '0');
 }
 
-void	flag_d(int n, int *len)
+void	put_lowerhexa(uintptr_t c)
 {
-	divide_n_apply_f(n, DECBASE, (void *)&put_d, len);
+	ft_putchar(LOWERHEXA[c]);
 }
 
-void	flag_i(int n, int *len)
+void	put_upperhexa(uintptr_t c)
 {
-	flag_d(n, len);
+	ft_putchar(UPPERHEXA[c]);
 }

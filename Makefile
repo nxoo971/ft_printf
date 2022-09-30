@@ -1,10 +1,10 @@
-SRCS	= ft_printf.c flags.c flags2.c sflags.c xflags.c
+SRCS	= ft_printf.c exec_n.c exec_str.c operations.c puts.c puts_essentials.c
 
 BONUS	= 
 
 NAME	= libftprintf.a
 
-INC		= -I ./includes/
+INC		= -I ./
 
 FLAGS	= -Wall -Werror -Wextra
 

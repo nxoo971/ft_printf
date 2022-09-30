@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sflags.c                                           :+:      :+:    :+:   */
+/*   puts_essentials.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/28 17:44:07 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/29 00:43:39 by nxoo             ###   ########.fr       */
+/*   Created: 2022/09/30 21:08:11 by nxoo              #+#    #+#             */
+/*   Updated: 2022/09/30 23:22:36 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "includes/ft_printf.h"
+#include "ft_printf.h"
 
-void	put_d(int n)
+int	ft_putchar(int c)
 {
-	ft_putchar_fd(n + '0', 1);
+	return (write(1, &c, 1));
 }
 
-void	put_x(unsigned int n)
+int	ft_putstr(const char *s)
 {
-	ft_putchar_fd(LOWERHEXA[n], 1);
-}
+	int	i;
 
-void	put_bigx(unsigned int n)
-{
-	ft_putchar_fd(UPPERHEXA[n], 1);
-}
-
-void	put_p(unsigned long int n)
-{
-	ft_putchar_fd(LOWERHEXA[n], 1);
-}
-
-void	put_u(unsigned int n)
-{
-	ft_putchar_fd(n + '0', 1);
+	i = 0;
+	while (s[i])
+		i++;
+	return (write(1, s, i));
 }
