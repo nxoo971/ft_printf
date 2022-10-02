@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:18:01 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/30 23:20:22 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/02 03:20:54 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,9 @@ int	exec_char(va_list *params)
 int	exec_string(va_list *params)
 {
 	const char	*s;
-	int			i;
 
 	s = va_arg(*params, const char *);
 	if (!s)
 		s = "(null)";
-	i = 0;
-	while (s[i])
-		i++;
-	return (write(1, s, i));
+	return (ft_putstr(s));
 }
