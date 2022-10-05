@@ -1,28 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_str.c                                         :+:      :+:    :+:   */
+/*   calc_len.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 19:18:01 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/02 03:20:54 by nxoo             ###   ########.fr       */
+/*   Created: 2022/10/05 02:28:10 by nxoo              #+#    #+#             */
+/*   Updated: 2022/10/05 02:29:53 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	exec_char(va_list *params)
+int	len_unsigned(uintptr_t nb, int base)
 {
-	return (ft_putchar((uintptr_t)va_arg(*params, int)));
+	int	count;
+
+	count = 0;
+	while (nb >= base)
+	{
+		count++;
+		nb /= base;
+	}
+	return (count + 1);
 }
 
-int	exec_string(va_list *params)
+int	len_integer(intptr_t nb, int base)
 {
-	const char	*s;
+	int	count;
 
-	s = va_arg(*params, const char *);
-	if (!s)
-		s = "(null)";
-	return (ft_putstr(s));
+	count = 0;
+	if (nb < 0)
+	{
+		count = 1;
+		nb = nb * -1;
+	}
+	while (nb >= base)
+	{
+		count++;
+		nb /= base;
+	}
+	return (count + 1);
 }

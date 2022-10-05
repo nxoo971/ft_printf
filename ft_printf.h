@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 16:55:55 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/30 23:22:10 by nxoo             ###   ########.fr       */
+/*   Created: 2022/10/01 01:05:34 by nxoo              #+#    #+#             */
+/*   Updated: 2022/10/05 03:48:22 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,88 @@
 # define FT_PRINTF_H
 
 # include <unistd.h>
-# include <stdio.h>
 # include <stdarg.h>
+# include "libft/libft.h"
 
 # define UPPERHEXA	"0123456789ABCDEF"
 # define LOWERHEXA	"0123456789abcdef"
 
-typedef int	(*t_action)(va_list *);
-// ft_printf.c
-int		ft_printf(const char *format, ...);
+enum
+{
+	STRING,
+	SPECIFICATION
+}
+e_state;
+
+enum e_bool
+{
+	faux,
+	vrai
+};
+typedef enum e_bool	t_bool;
+
+struct s_spec_info {
+	t_bool	is_left_aligned;
+	t_bool	with_leading_zeroes;
+	t_bool	plus;
+	t_bool	space;
+	int		sharp;
+	char	current_type_sharp;
+
+	t_bool	width_is_specified;
+	int		width;
+
+	t_bool	precision_is_specified;
+	int		precision;
+
+	int		half_count;
+	int		long_count;
+	t_bool	is_size_t;
+
+	char	current_type;
+	t_bool	size_is_specified;
+	t_bool	is_negative;
+	t_bool	is_empty;
+	int		current_size;
+};
+
+typedef int			(*t_action)(va_list *, struct s_spec_info *s);
+
+int					ft_printf(const char *format, ...);
+int					explain_specification(const char *start, const char *end, \
+											va_list *param);
+int					pre_explain_flag_specification(const struct s_spec_info *s);
+int					explain_flag_specification(const struct s_spec_info *s);
+// s_spec_info.c
+struct s_spec_info	extract_spec_info(const char *start, const char *end);
+// init.c
+void				init_names(char *(*names)[256]);
+void				init_actions(t_action (*actions)[256]);
+void				init_spec_info(struct s_spec_info *s);
 // exec_n.c
-int		exec_pointer(va_list *params);
-int		exec_integer(va_list *params);
-int		exec_unsigned(va_list *params);
-int		exec_lowerhexa(va_list *params);
-int		exec_upperhexa(va_list *params);
+int					exec_pointer(va_list *param, struct s_spec_info *s);
+int					exec_integer(va_list *param, struct s_spec_info *s);
+int					exec_unsigned(va_list *param, struct s_spec_info *s);
+int					exec_lowerhexa(va_list *param, struct s_spec_info *s);
+int					exec_upperhexa(va_list *param, struct s_spec_info *s);
 // exec_str.c
-int		exec_char(va_list *params);
-int		exec_string(va_list *params);
+int					exec_char(va_list *param, struct s_spec_info *s);
+int					exec_string(va_list *param, struct s_spec_info *s);
 // puts_essentials.c
-int		ft_putchar(int c);
-int		ft_putstr(const char *s);
+int					ft_putchar(int c);
+int					ft_putstr(const char *s);
 // puts.c
-void	put_integer(intptr_t c);
-void	put_unsigned(uintptr_t c);
-void	put_lowerhexa(uintptr_t c);
-void	put_upperhexa(uintptr_t c);
+void				put_integer(intptr_t c);
+void				put_unsigned(uintptr_t c);
+void				put_lowerhexa(uintptr_t c);
+void				put_upperhexa(uintptr_t c);
 // operations.c
-int		divide_n_apply_f(intptr_t n, int base, void (f)(intptr_t));
-int		divide_n_apply_f2(uintptr_t n, int base, void (f)(uintptr_t));
+int					divide_integer_apply_f(intptr_t n, int base, \
+											void (f)(intptr_t));
+int					divide_unsigned_apply_f(uintptr_t n, int base, \
+											void (f)(uintptr_t));
+// calc_len.c
+int					len_unsigned(uintptr_t nb, int base);
+int					len_integer(intptr_t nb, int base);
 
 #endif

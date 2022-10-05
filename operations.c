@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:21:00 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/30 23:20:48 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/05 01:01:37 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	d1(intptr_t n, int base, void (f)(intptr_t), int *calclen)
 	return (*calclen += 1);
 }
 
-int	divide_n_apply_f(intptr_t n, int base, void (f)(intptr_t))
+int	divide_integer_apply_f(intptr_t n, int base, void (f)(intptr_t))
 {
 	int	len;
 
@@ -43,7 +43,7 @@ static int	d2(uintptr_t n, int base, void (f)(uintptr_t), int *calclen)
 	return (*calclen += 1);
 }
 
-int	divide_n_apply_f2(uintptr_t n, int base, void (f)(uintptr_t))
+int	divide_unsigned_apply_f(uintptr_t n, int base, void (f)(uintptr_t))
 {
 	int	len;
 

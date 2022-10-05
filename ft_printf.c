@@ -5,50 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 16:54:07 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/30 23:22:47 by nxoo             ###   ########.fr       */
+/*   Created: 2022/10/01 01:05:09 by nxoo              #+#    #+#             */
+/*   Updated: 2022/10/05 03:40:22 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	init_actions(t_action (*actions)[256])
+static int	print_substring(const char *start, const char *end)
 {
-	(*actions)['c'] = & exec_char;
-	(*actions)['s'] = & exec_string;
-	(*actions)['p'] = & exec_pointer;
-	(*actions)['i'] = & exec_integer;
-	(*actions)['d'] = & exec_integer;
-	(*actions)['u'] = & exec_unsigned;
-	(*actions)['x'] = & exec_lowerhexa;
-	(*actions)['X'] = & exec_upperhexa;
+	const char	*p;
+	int			len;
+
+	p = start;
+	len = 0;
+	while (p < end)
+		len += ft_putchar(*p++);
+	return (len);
+}
+
+static int	is_specifier(char c)
+{
+	char	*names[256];
+
+	init_names(&names);
+	return (names[(unsigned)c] != NULL);
+}
+
+static void	main_printf(const char *start, const char *end, \
+							int *len, va_list *params)
+{
+	while (*end != '\0')
+	{
+		if (e_state == STRING)
+		{
+			if (*end == '%')
+			{
+				*len += print_substring(start, end);
+				e_state = SPECIFICATION;
+				start = end;
+			}
+		}
+		else
+		{
+			if (is_specifier(*end))
+			{
+				*len += explain_specification(start, end + 1, params);
+				e_state = STRING;
+				start = end + 1;
+			}
+		}
+		end++;
+	}
+	*len += print_substring(start, end);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list		params;
-	t_action	actions[256];
-	t_action	a;
 	int			len;
+	const char	*p;
+	const char	*start;
 
+	p = format;
+	start = format;
+	e_state = STRING;
 	len = 0;
-	init_actions(&actions);
 	va_start(params, format);
-	while (*format)
-	{
-		while (*format && *format != '%')
-			len += ft_putchar(*format++);
-		if (!*format)
-			break ;
-		if (*++format == '%')
-			len += ft_putchar(*format++);
-		else
-		{
-			a = actions[(unsigned)*format++];
-			if (a)
-				len += a(&params);
-		}
-	}
+	main_printf(start, p, &len, &params);
 	va_end(params);
 	return (len);
 }
