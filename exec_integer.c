@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:18:01 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/05 03:36:14 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/06 21:46:42 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	exec_integer(va_list *param, struct s_spec_info *s)
 	s->current_size = len_integer(n, 10);
 	s->is_negative = n < 0;
 	written = pre_explain_flag_specification(s);
-	if (!s->is_left_aligned)
+	if (s->is_negative)
 	{
-		if (s->is_negative && \
-				(s->with_leading_zeroes || s->precision_is_specified))
-			n = n * -1;
-		return (written + explain_flag_specification(s) + \
-					divide_integer_apply_f(n, 10, &put_integer));
+		written += ft_putchar('-');
+		n = n * -1;
 	}
-	return (written + divide_integer_apply_f(n, 10, &put_integer) + \
+	if (!s->is_left_aligned)
+		return (written + explain_flag_specification(s) + \
+					divide_unsigned_apply_f(n, 10, faux));
+	return (written + divide_unsigned_apply_f(n, 10, faux) + \
 				explain_flag_specification(s));
 }

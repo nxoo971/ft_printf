@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 02:04:09 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/05 03:35:03 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/06 22:23:49 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,10 @@ int	explain_flag_specification2(const struct s_spec_info *s, int written)
 {
 	int	len;
 
-	if (!s->is_empty && s->precision_is_specified)
+	if (s->current_type != 's' && s->precision_is_specified)
 	{
 		if (s->is_negative)
-		{
-			written += ft_putchar('-');
 			len = s->precision - (s->current_size - 1);
-		}
 		else
 			len = s->precision - s->current_size;
 		while (len > 0)
@@ -74,11 +71,7 @@ int	explain_flag_specification(const struct s_spec_info *s)
 	if (s->width_is_specified)
 	{
 		if (s->with_leading_zeroes)
-		{
 			c = '0';
-			if (s->is_negative)
-				written = ft_putchar('-');
-		}
 		if (s->width && s->size_is_specified)
 		{
 			len = s->width - s->current_size;
@@ -94,10 +87,21 @@ int	explain_flag_specification(const struct s_spec_info *s)
 
 int	explain_specification(const char *start, const char *end, va_list *param)
 {
-	struct s_spec_info	s;
-	t_action			actions[256];
+	struct s_spec_info		s;
+	static const t_action	actions[256] = {
+	['c'] = & exec_char,
+	['s'] = & exec_string,
+	['p'] = & exec_pointer,
+	['d'] = & exec_integer,
+	['i'] = & exec_integer,
+	['u'] = & exec_unsigned,
+	['x'] = & exec_lowerhexa,
+	['X'] = & exec_upperhexa,
+	['%'] = & exec_percent,
+	};
 
-	init_actions(&actions);
 	s = extract_spec_info(start, end);
-	return (actions[s.current_type](param, &s));
+	if (actions[(unsigned)s.current_type] != NULL)
+		return (actions[(unsigned)s.current_type](param, &s));
+	return (0);
 }

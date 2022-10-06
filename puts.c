@@ -6,28 +6,38 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 22:26:55 by nxoo              #+#    #+#             */
-/*   Updated: 2022/09/30 21:08:32 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/06 19:08:53 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	put_integer(intptr_t c)
+int	ft_putchar(int c)
 {
-	ft_putchar(c + '0');
+	return (write(1, &c, 1));
 }
 
-void	put_unsigned(uintptr_t c)
+int	ft_putstr(const char *s)
 {
-	ft_putchar(c + '0');
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (write(1, s, i));
 }
 
-void	put_lowerhexa(uintptr_t c)
+int	ft_putnstr(const char *s, int len)
 {
-	ft_putchar(LOWERHEXA[c]);
+	int	i;
+
+	i = 0;
+	while (s[i] && i < len)
+		i++;
+	return (write(1, s, i));
 }
 
-void	put_upperhexa(uintptr_t c)
+void	put_integer(int c, const char *sbase, const int base)
 {
-	ft_putchar(UPPERHEXA[c]);
+	ft_putchar(sbase[c % base]);
 }

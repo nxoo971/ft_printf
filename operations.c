@@ -6,48 +6,22 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:21:00 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/05 01:01:37 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/06 21:29:45 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	d1(intptr_t n, int base, void (f)(intptr_t), int *calclen)
-{
-	if (n < 0)
-	{
-		n = n * -1;
-		*calclen += 1;
-		ft_putchar('-');
-	}
-	if (n >= base)
-		d1(n / base, base, f, calclen);
-	f(n % base);
-	return (*calclen += 1);
-}
+#define SIZE	2 /* upper and lower base */
 
-int	divide_integer_apply_f(intptr_t n, int base, void (f)(intptr_t))
+int	divide_unsigned_apply_f(uintptr_t n, int base, t_bool lower)
 {
-	int	len;
+	static int					len;
+	static const char *const	bases[SIZE] = {BASE, LOWERBASE};
 
 	len = 0;
-	d1(n, base, f, &len);
-	return (len);
-}
-
-static int	d2(uintptr_t n, int base, void (f)(uintptr_t), int *calclen)
-{
 	if (n >= (uintptr_t)base)
-		d2(n / base, base, f, calclen);
-	f(n % base);
-	return (*calclen += 1);
-}
-
-int	divide_unsigned_apply_f(uintptr_t n, int base, void (f)(uintptr_t))
-{
-	int	len;
-
-	len = 0;
-	d2(n, base, f, &len);
+		divide_unsigned_apply_f(n / base, base, lower);
+	len += ft_putchar(bases[lower][n % base]);
 	return (len);
 }

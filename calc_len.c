@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 02:28:10 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/05 02:29:53 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/06 22:29:58 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	len_unsigned(uintptr_t nb, int base)
 	int	count;
 
 	count = 0;
-	while (nb >= base)
+	while (nb >= (unsigned)base)
 	{
 		count++;
 		nb /= base;

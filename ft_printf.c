@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 01:05:09 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/05 03:40:22 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/06 18:37:06 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,20 @@ static int	print_substring(const char *start, const char *end)
 	return (len);
 }
 
-static int	is_specifier(char c)
+int	is_specifier(char c)
 {
-	char	*names[256];
+	static const char *const	names[256] = {
+	['c'] = "char",
+	['s'] = "char *",
+	['p'] = "pointer",
+	['d'] = "int",
+	['i'] = "int",
+	['u'] = "unsigned",
+	['x'] = "unsigned hexa",
+	['X'] = "unsigned hexa",
+	['%'] = "percent",
+	};
 
-	init_names(&names);
 	return (names[(unsigned)c] != NULL);
 }
 

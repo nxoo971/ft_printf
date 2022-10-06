@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 01:05:34 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/05 03:48:22 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/06 22:34:36 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <stdarg.h>
 # include "libft/libft.h"
 
-# define UPPERHEXA	"0123456789ABCDEF"
-# define LOWERHEXA	"0123456789abcdef"
+# define BASE		"0123456789ABCDEF"
+# define LOWERBASE	"0123456789abcdef"
 
 enum
 {
@@ -68,10 +68,11 @@ int					pre_explain_flag_specification(const struct s_spec_info *s);
 int					explain_flag_specification(const struct s_spec_info *s);
 // s_spec_info.c
 struct s_spec_info	extract_spec_info(const char *start, const char *end);
-// init.c
-void				init_names(char *(*names)[256]);
-void				init_actions(t_action (*actions)[256]);
-void				init_spec_info(struct s_spec_info *s);
+// accept.c
+t_bool				accept_flag_char(struct s_spec_info *s, char c);
+t_bool				accept_width_char(struct s_spec_info *s, char c);
+t_bool				accept_precision_char(struct s_spec_info *s, char c);
+t_bool				accept_type_char(struct s_spec_info *s, char c);
 // exec_n.c
 int					exec_pointer(va_list *param, struct s_spec_info *s);
 int					exec_integer(va_list *param, struct s_spec_info *s);
@@ -80,20 +81,16 @@ int					exec_lowerhexa(va_list *param, struct s_spec_info *s);
 int					exec_upperhexa(va_list *param, struct s_spec_info *s);
 // exec_str.c
 int					exec_char(va_list *param, struct s_spec_info *s);
+int					exec_percent(va_list *param, struct s_spec_info *s);
 int					exec_string(va_list *param, struct s_spec_info *s);
-// puts_essentials.c
+// puts.c
+void				put_integer(int c, const char *sbase, const int base);
 int					ft_putchar(int c);
 int					ft_putstr(const char *s);
-// puts.c
-void				put_integer(intptr_t c);
-void				put_unsigned(uintptr_t c);
-void				put_lowerhexa(uintptr_t c);
-void				put_upperhexa(uintptr_t c);
+int					ft_putnstr(const char *s, int len);
 // operations.c
-int					divide_integer_apply_f(intptr_t n, int base, \
-											void (f)(intptr_t));
 int					divide_unsigned_apply_f(uintptr_t n, int base, \
-											void (f)(uintptr_t));
+												t_bool lower);
 // calc_len.c
 int					len_unsigned(uintptr_t nb, int base);
 int					len_integer(intptr_t nb, int base);
