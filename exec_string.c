@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:18:01 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/06 03:59:24 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/06 23:11:21 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	exec_string(va_list *param, struct s_spec_info *s)
 	i = ft_strlen(str);
 	s->size_is_specified = vrai;
 	s->current_size = i;
-	s->is_empty = i == 0;
 	if ((s->space && !s->is_left_aligned && i > 0 && !*str))
 		ft_putchar(' ');
 	if (s->is_left_aligned)

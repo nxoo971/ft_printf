@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 01:05:09 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/06 18:37:06 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/07 22:55:54 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	print_substring(const char *start, const char *end)
 	return (len);
 }
 
-int	is_specifier(char c)
+static int	is_type(char c)
 {
 	static const char *const	names[256] = {
 	['c'] = "char",
@@ -41,26 +41,54 @@ int	is_specifier(char c)
 	return (names[(unsigned)c] != NULL);
 }
 
+static t_bool	case_string_specification(const char **start, const char **end, \
+											int *len, va_list *params)
+{
+	if (e_state == STRING)
+	{
+		if (**end == '%' || **end == '{')
+		{
+			*len += print_substring(*start, *end);
+			if (**end == '%')
+				e_state = SPECIFICATION;
+			else
+				e_state = COLOR;
+			*start = *end;
+		}
+	}
+	else if (e_state == SPECIFICATION)
+	{
+		if (is_type(**end))
+		{
+			*len += explain_specification(*start, *end + 1, params);
+			e_state = STRING;
+			*start = *end + 1;
+		}
+	}
+	return (e_state == STRING || e_state == SPECIFICATION);
+}
+
 static void	main_printf(const char *start, const char *end, \
 							int *len, va_list *params)
 {
+	char	*tmp;
+
 	while (*end != '\0')
 	{
-		if (e_state == STRING)
+		if (!case_string_specification(&start, &end, len, params))
 		{
-			if (*end == '%')
+			if (*end == '}')
 			{
-				*len += print_substring(start, end);
-				e_state = SPECIFICATION;
-				start = end;
-			}
-		}
-		else
-		{
-			if (is_specifier(*end))
-			{
-				*len += explain_specification(start, end + 1, params);
-				e_state = STRING;
+				tmp = ft_strnrchr(start, '{', end - start);
+				if (tmp != start)
+				{
+					print_substring(start, tmp);
+					start = tmp;
+				}
+				if (explain_color(start, end + 1))
+					e_state = STRING;
+				else
+					*len += print_substring(start, end + 1);
 				start = end + 1;
 			}
 		}
