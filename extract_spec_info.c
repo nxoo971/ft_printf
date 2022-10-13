@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:06:24 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/06 23:11:40 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/11 02:50:48 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static struct s_spec_info	init_spec(void)
 		.width_is_specified = faux,
 		.width = 0,
 		.precision_is_specified = faux,
-		.precision = 0,
+		.precision = -1,
 		.half_count = 0,
 		.long_count = 0,
 		.is_size_t = faux,
@@ -32,6 +32,7 @@ static struct s_spec_info	init_spec(void)
 		.is_negative = faux,
 		.size_is_specified = faux,
 		.current_size = 0,
+		.is_null = faux,
 	};
 
 	return (s);
@@ -46,6 +47,8 @@ struct s_spec_info	extract_spec_info(const char *start, const char *end)
 	s = init_spec();
 	while (accept_flag_char(&s, *p))
 		p++;
+	if (*p == '0')
+		s.with_leading_zeroes = vrai;
 	while (accept_width_char(&s, *p))
 		p++;
 	if (*p == '.')

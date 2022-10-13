@@ -6,83 +6,57 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 02:04:09 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/07 15:42:03 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/13 23:07:04 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	pre_explain_flag_specification(const struct s_spec_info *s)
+int	treat_test(const struct s_spec_info *s)
 {
-	int		written;
-	char	current_flag;
+	int written = 0;
+	int width = (s->width - s->current_size);
+	//printf("\ntst: %d\n", width);
 
-	written = 0;
-	current_flag = -1;
-	if (s->size_is_specified)
+	if (s->width > 0 && s->precision_is_specified && (s->precision == -1 || s->width > s->precision))
 	{
-		if (s->current_type == 'd' || s->current_type == 'i')
-		{
-			if (s->space && !s->is_negative)
-				current_flag = ' ';
-			if (s->plus && !s->is_negative)
-				current_flag = '+';
-			if (current_flag != -1)
-				written = ft_putchar(current_flag);
-		}
-		if ((s->current_type == 'x' || s->current_type == 'X') && \
-				s->sharp && !s->is_negative)
-		{
-			written = ft_putchar('0');
-			written += ft_putchar(s->current_type_sharp);
-		}
+		width = s->width;
+		if (s->width > s->precision && s->precision != -1)
+			width -= s->precision;
+		while (--width >= 0)
+			written += ft_putchar(' ');
 	}
-	return (written);
-}
-
-static \
-int	explain_flag_specification2(const struct s_spec_info *s, int written)
-{
-	int	len;
-
-	if (s->current_type != 's' && s->precision_is_specified)
+	if (s->plus)
+		width -= 1;
+	if (!s->with_leading_zeroes)
 	{
-		if (s->is_negative)
-			len = s->precision - (s->current_size - 1);
+		while (--width >= 0)
+			written += ft_putchar(' ');
+	}
+	if (!s->is_left_aligned && ((s->sharp && !s->is_null) || s->current_type == 'p'))
+	{
+		written += ft_putchar('0');
+		if (!s->sharp)
+			written += ft_putchar('x');
 		else
-			len = s->precision - s->current_size;
-		while (len > 0)
-		{
-			written += ft_putchar('0');
-			len--;
-		}
+			written += ft_putchar(s->current_type_sharp);
 	}
-	return (written);
-}
-
-int	explain_flag_specification(const struct s_spec_info *s)
-{
-	char	c;
-	int		written;
-	int		len;
-
-	c = ' ';
-	written = 0;
-	if (s->width_is_specified)
+	if (s->with_leading_zeroes)
 	{
-		if (s->with_leading_zeroes)
-			c = '0';
-		if (s->width && s->size_is_specified)
-		{
-			len = s->width - s->current_size;
-			if (s->precision_is_specified)
-				len = s->width - (s->current_size + s->precision - \
-						(s->is_negative == vrai));
-			while (len-- > 0)
-				written += ft_putchar(c);
-		}
+		int c = '0';
+		if ((s->is_null || (s->precision_is_specified && s->width > s->precision)))
+			c = ' ';
+		if (s->precision_is_specified && s->precision > 0 && s->precision > s->current_size && s->width > s->precision)
+			width -= (s->precision - s->current_size);
+		if (s->precision_is_specified && s->precision > s->width && c != ' ')
+			width = (s->precision - s->current_size);
+		if (s->is_null && s->precision_is_specified && s->precision == 0)
+			width += 1;
+		while (--width >= 0)
+			written += ft_putchar(c);
 	}
-	return (explain_flag_specification2(s, written));
+	// affiche n or s
+	return (written);
 }
 
 int	explain_specification(const char *start, const char *end, va_list *param)

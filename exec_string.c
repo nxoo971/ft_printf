@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:18:01 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/06 23:11:21 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/13 23:17:02 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ int	exec_char(va_list *param, struct s_spec_info *s)
 	s->size_is_specified = vrai;
 	s->current_size = 1;
 	if (s->is_left_aligned)
-		return (ft_putchar((uintptr_t)va_arg(*param, int)) + \
-				explain_flag_specification(s));
-	return (explain_flag_specification(s) + \
-				ft_putchar((uintptr_t)va_arg(*param, int)));
+		return (ft_putchar((uintptr_t)va_arg(*param, int)) + treat_test(s));
+	return (treat_test(s) + ft_putchar((uintptr_t)va_arg(*param, int)));
 }
 
 int	exec_percent(va_list *param, struct s_spec_info *s)
@@ -34,7 +32,7 @@ int	exec_string(va_list *param, struct s_spec_info *s)
 {
 	const char	*str;
 	int			i;
-	int			written;
+	int			written = 0;
 
 	str = va_arg(*param, const char *);
 	if (!str)
@@ -45,13 +43,19 @@ int	exec_string(va_list *param, struct s_spec_info *s)
 	if ((s->space && !s->is_left_aligned && i > 0 && !*str))
 		ft_putchar(' ');
 	if (s->is_left_aligned)
-		return (write(1, str, i) + explain_flag_specification(s));
-	if (!s->precision_is_specified)
-		return (explain_flag_specification(s) + write(1, str, i));
-	if (s->precision < i - 1 && s->precision != 0)
-		return (ft_putchar(' '));
-	written = explain_flag_specification(s);
-	if (written > 0)
-		return (written + write(1, str, i));
-	return (ft_putnstr(str, s->precision));
+	{
+		if (s->precision_is_specified) {
+			if (s->precision == -1)
+				return (treat_test(s));
+			return (written + write(1, str, s->precision) + treat_test(s));
+		}
+		return (write(1, str, i) + treat_test(s));
+	}
+	if (s->precision_is_specified) {
+		written += treat_test(s);
+		if (s->precision == -1)
+			return (written);
+		return (written + ft_putnstr(str, s->precision));
+	}
+	return (treat_test(s) + ft_putnstr(str, i));
 }

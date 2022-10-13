@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 01:05:34 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/07 21:22:45 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/13 20:31:43 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include "libft/libft.h"
+
+# define PAD_RIGHT	1
+# define PAD_ZERO	2
 
 # define BASE		"0123456789ABCDEF"
 # define LOWERBASE	"0123456789abcdef"
@@ -55,8 +58,10 @@ struct s_spec_info {
 
 	char	current_type;
 	t_bool	size_is_specified;
-	t_bool	is_negative;
 	int		current_size;
+	t_bool	is_negative;
+	t_bool	is_null;
+	int		pad;
 };
 
 typedef int			(*t_action)(va_list *, struct s_spec_info *s);
@@ -64,8 +69,8 @@ typedef int			(*t_action)(va_list *, struct s_spec_info *s);
 int					ft_printf(const char *format, ...);
 int					explain_specification(const char *start, const char *end, \
 											va_list *param);
-int					pre_explain_flag_specification(const struct s_spec_info *s);
-int					explain_flag_specification(const struct s_spec_info *s);
+int					not_left_aligned(struct s_spec_info *s, uintptr_t n, int base, t_bool lower);
+int	treat_test(const struct s_spec_info *s);
 // s_spec_info.c
 struct s_spec_info	extract_spec_info(const char *start, const char *end);
 // accept.c

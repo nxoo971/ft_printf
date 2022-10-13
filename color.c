@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:35:55 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/07 21:12:54 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/07 23:48:05 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ static t_bool	color_exist(const char *s1, const char *s2, size_t n)
 static t_bool	print_color(const char *start, const char *end, \
 								const char *const scolor[256])
 {
-	int	is_fg;
+	int	is_bg;
 	int	i;
 
-	is_fg = 0;
+	is_bg = 0;
 	if (ft_tolower(start[1]) == 'b' && ft_tolower(start[2]) == 'g')
-		is_fg = 1;
+		is_bg = 1;
 	i = 0;
 	while (i < 100)
 	{
 		if (scolor[i])
 		{
 			if (color_exist(scolor[i], \
-				start + (is_fg * 2) + 1, end - (start + (is_fg * 2) + 1) - 1))
+				start + (is_bg * 2) + 1, end - (start + (is_bg * 2) + 1) - 1))
 			{
-				if (is_fg)
+				if (is_bg)
 					i += 10;
 				ft_printf("%s%d%s", PRE_COLOR, i, END_COLOR);
 				return (vrai);
