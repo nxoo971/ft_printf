@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 01:05:09 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/07 22:55:54 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/14 23:11:05 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 static int	print_substring(const char *start, const char *end)
 {
 	const char	*p;
-	int			len;
 
 	p = start;
-	len = 0;
 	while (p < end)
-		len += ft_putchar(*p++);
-	return (len);
+		ft_putchar(*p++);
+	return (p - start);
 }
 
 static int	is_type(char c)

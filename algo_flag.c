@@ -6,14 +6,14 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 02:33:37 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/14 03:17:03 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/14 23:00:05 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 static \
-int	precision_is_not_specified(struct s_spec_info *s, uintptr_t n, int base, t_bool lower)
+int	precision_is_not_specified(const struct s_spec_info *s, uintptr_t n, int base, t_bool lower)
 {
 	int	c;
 	int	width;
@@ -39,7 +39,7 @@ int	precision_is_not_specified(struct s_spec_info *s, uintptr_t n, int base, t_b
 }
 
 static \
-int	precision_is_specified_and_greater_than_currentsize(struct s_spec_info *s, uintptr_t n, int base, t_bool lower)
+int	precision_is_specified_and_greater_than_currentsize(const struct s_spec_info *s, uintptr_t n, int base, t_bool lower)
 {
 	int	width;
 	int	prec;
@@ -71,7 +71,7 @@ int	precision_is_specified_and_greater_than_currentsize(struct s_spec_info *s, u
 }
 
 static \
-int	width_is_specified_and_greater_than_currentsize(struct s_spec_info *s, uintptr_t n, int base, t_bool lower)
+int	width_is_specified_and_greater_than_currentsize(const struct s_spec_info *s, uintptr_t n, int base, t_bool lower)
 {
 	int	width;
 	int	prec;
@@ -107,7 +107,7 @@ int	width_is_specified_and_greater_than_currentsize(struct s_spec_info *s, uintp
 	return (written + divide_unsigned_apply_f(n, base, lower));
 }
 
-int	print_algo_flag(struct s_spec_info *s, uintptr_t n, int base, t_bool lower)
+int	print_algo_flag(const struct s_spec_info *s, uintptr_t n, int base, t_bool lower)
 {
 	if (!s->precision_is_specified)
 		return (precision_is_not_specified(s, n, base, lower));

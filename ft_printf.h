@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 01:05:34 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/14 22:22:25 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/14 23:15:55 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_bool				accept_width_char(struct s_spec_info *s, char c);
 t_bool				accept_precision_char(struct s_spec_info *s, char c);
 t_bool				accept_type_char(struct s_spec_info *s, char c);
 // algo_flag.c
-int					print_algo_flag(struct s_spec_info *s, uintptr_t n, int base, t_bool lower);
+int					print_algo_flag(const struct s_spec_info *s, uintptr_t n, int base, t_bool lower);
 // print.c
 int					print_prefix(const struct s_spec_info *s);
 int					print_sign(const struct s_spec_info *s);
@@ -94,11 +94,11 @@ int					divide_unsigned_apply_f(uintptr_t n, int base, \
 int					ft_putchar(int c);
 int					ft_putstr(const char *s);
 int					ft_putnstr(const char *s, int len);
-void				put_integer(int c, const char *sbase, const int base);
+void				put_integer(const int c, const char *sbase, const int base);
 
 // calc_len.c
-int					len_unsigned(uintptr_t nb, int base);
-int					len_integer(intptr_t nb, int base);
+int					len_unsigned(uintptr_t nb, const int base);
+int					len_integer(intptr_t nb, const int base);
 // color.c
 t_bool				explain_color(const char *start, const char *end);
 

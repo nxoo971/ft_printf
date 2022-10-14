@@ -6,39 +6,26 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 02:28:10 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/13 21:12:28 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/14 23:06:02 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	len_unsigned(uintptr_t nb, int base)
+int	len_unsigned(uintptr_t nb, const int base)
 {
-	int	count;
+	static int	len;
 
-	count = 0;
-	while (nb >= (unsigned)base)
-	{
-		count++;
-		nb /= base;
-	}
-	return (count + 1);
+	len = 0;
+	if (nb >= (unsigned)base)
+		len_unsigned(nb / (unsigned)base, base);
+	len++;
+	return (len);
 }
 
-int	len_integer(intptr_t nb, int base)
+int	len_integer(intptr_t nb, const int base)
 {
-	int	count;
-
-	count = 0;
 	if (nb < 0)
-	{
-		count = 1;
-		nb = nb * -1;
-	}
-	while (nb >= base)
-	{
-		count++;
-		nb /= base;
-	}
-	return (count + 1);
+		return (1 + len_unsigned((unsigned)nb * -1, base));
+	return (len_unsigned((unsigned)nb, base));
 }
