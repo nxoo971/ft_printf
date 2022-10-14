@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:06:24 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/14 02:38:29 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/14 22:22:38 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static struct s_spec_info	init_spec(void)
 		.is_size_t = faux,
 		.current_type = -1,
 		.is_negative = faux,
-		.size_is_specified = faux,
 		.current_size = 0,
 		.is_null = faux,
 	};

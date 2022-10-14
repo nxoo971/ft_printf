@@ -6,58 +6,11 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 02:04:09 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/14 02:38:44 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/14 20:49:58 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	treat_test(const struct s_spec_info *s)
-{
-	int written = 0;
-	int width = (s->width - s->current_size);
-	//printf("\ntst: %d\n", width);
-
-	if (s->width > 0 && s->precision_is_specified && (s->precision == -1 || s->width > s->precision))
-	{
-		width = s->width;
-		if (s->width > s->precision && s->precision != -1)
-			width -= s->precision;
-		while (--width >= 0)
-			written += ft_putchar(' ');
-	}
-	if (s->plus)
-		width -= 1;
-	if (!s->with_leading_zeroes)
-	{
-		while (--width >= 0)
-			written += ft_putchar(' ');
-	}
-	if (!s->is_left_aligned && ((s->sharp && !s->is_null) || s->current_type == 'p'))
-	{
-		written += ft_putchar('0');
-		if (!s->sharp)
-			written += ft_putchar('x');
-		else
-			written += ft_putchar(s->current_type);
-	}
-	if (s->with_leading_zeroes)
-	{
-		int c = '0';
-		if ((s->is_null || (s->precision_is_specified && s->width > s->precision)))
-			c = ' ';
-		if (s->precision_is_specified && s->precision > 0 && s->precision > s->current_size && s->width > s->precision)
-			width -= (s->precision - s->current_size);
-		if (s->precision_is_specified && s->precision > s->width && c != ' ')
-			width = (s->precision - s->current_size);
-		if (s->is_null && s->precision_is_specified && s->precision == 0)
-			width += 1;
-		while (--width >= 0)
-			written += ft_putchar(c);
-	}
-	// affiche n or s
-	return (written);
-}
 
 int	explain_specification(const char *start, const char *end, va_list *param)
 {

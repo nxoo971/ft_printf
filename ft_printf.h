@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 01:05:34 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/14 02:36:21 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/14 22:22:25 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ struct s_spec_info {
 	t_bool	is_size_t;
 
 	char	current_type;
-	t_bool	size_is_specified;
 	int		current_size;
 	t_bool	is_negative;
 	t_bool	is_null;
@@ -64,7 +63,6 @@ typedef int			(*t_action)(va_list *, struct s_spec_info *s);
 int					ft_printf(const char *format, ...);
 int					explain_specification(const char *start, const char *end, \
 											va_list *param);
-int	treat_test(const struct s_spec_info *s);
 // s_spec_info.c
 struct s_spec_info	extract_spec_info(const char *start, const char *end);
 // accept.c

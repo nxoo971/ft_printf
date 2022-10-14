@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:18:01 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/14 02:11:02 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/14 22:23:12 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	exec_integer(va_list *param, struct s_spec_info *s)
 
 	written = 0;
 	n = va_arg(*param, int);
-	s->size_is_specified = vrai;
 	s->current_size = len_integer(n, 10);
 	s->is_negative = n < 0;
 	s->is_null = n == 0;
