@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 02:04:09 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/13 23:07:04 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/14 02:38:44 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	treat_test(const struct s_spec_info *s)
 		if (!s->sharp)
 			written += ft_putchar('x');
 		else
-			written += ft_putchar(s->current_type_sharp);
+			written += ft_putchar(s->current_type);
 	}
 	if (s->with_leading_zeroes)
 	{

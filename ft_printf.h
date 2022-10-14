@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 01:05:34 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/13 20:31:43 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/14 02:36:21 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include "libft/libft.h"
-
-# define PAD_RIGHT	1
-# define PAD_ZERO	2
 
 # define BASE		"0123456789ABCDEF"
 # define LOWERBASE	"0123456789abcdef"
@@ -43,8 +40,7 @@ struct s_spec_info {
 	t_bool	with_leading_zeroes;
 	t_bool	plus;
 	t_bool	space;
-	int		sharp;
-	char	current_type_sharp;
+	t_bool	sharp;
 
 	t_bool	width_is_specified;
 	int		width;
@@ -61,7 +57,6 @@ struct s_spec_info {
 	int		current_size;
 	t_bool	is_negative;
 	t_bool	is_null;
-	int		pad;
 };
 
 typedef int			(*t_action)(va_list *, struct s_spec_info *s);
@@ -69,7 +64,6 @@ typedef int			(*t_action)(va_list *, struct s_spec_info *s);
 int					ft_printf(const char *format, ...);
 int					explain_specification(const char *start, const char *end, \
 											va_list *param);
-int					not_left_aligned(struct s_spec_info *s, uintptr_t n, int base, t_bool lower);
 int	treat_test(const struct s_spec_info *s);
 // s_spec_info.c
 struct s_spec_info	extract_spec_info(const char *start, const char *end);
@@ -78,6 +72,12 @@ t_bool				accept_flag_char(struct s_spec_info *s, char c);
 t_bool				accept_width_char(struct s_spec_info *s, char c);
 t_bool				accept_precision_char(struct s_spec_info *s, char c);
 t_bool				accept_type_char(struct s_spec_info *s, char c);
+// algo_flag.c
+int					print_algo_flag(struct s_spec_info *s, uintptr_t n, int base, t_bool lower);
+// print.c
+int					print_prefix(const struct s_spec_info *s);
+int					print_sign(const struct s_spec_info *s);
+int					print_width(int width, int c);
 // exec_integer.c
 int					exec_integer(va_list *param, struct s_spec_info *s);
 // exec_unsigned.c
@@ -89,14 +89,15 @@ int					exec_upperhexa(va_list *param, struct s_spec_info *s);
 int					exec_char(va_list *param, struct s_spec_info *s);
 int					exec_percent(va_list *param, struct s_spec_info *s);
 int					exec_string(va_list *param, struct s_spec_info *s);
+// operations.c
+int					divide_unsigned_apply_f(uintptr_t n, int base, \
+												t_bool lower);
 // puts.c
 int					ft_putchar(int c);
 int					ft_putstr(const char *s);
 int					ft_putnstr(const char *s, int len);
 void				put_integer(int c, const char *sbase, const int base);
-// operations.c
-int					divide_unsigned_apply_f(uintptr_t n, int base, \
-												t_bool lower);
+
 // calc_len.c
 int					len_unsigned(uintptr_t nb, int base);
 int					len_integer(intptr_t nb, int base);

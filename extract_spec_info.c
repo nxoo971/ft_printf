@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:06:24 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/11 02:50:48 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/14 02:38:29 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static struct s_spec_info	init_spec(void)
 		.space = faux,
 		.plus = faux,
 		.sharp = faux,
-		.current_type_sharp = -1,
 		.width_is_specified = faux,
 		.width = 0,
 		.precision_is_specified = faux,
@@ -60,8 +59,6 @@ struct s_spec_info	extract_spec_info(const char *start, const char *end)
 	}
 	while (accept_type_char(&s, *p))
 		p++;
-	if (s.sharp)
-		s.current_type_sharp = end[-1];
 	s.current_type = end[-1];
 	return (s);
 }
