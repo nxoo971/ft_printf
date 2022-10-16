@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:18:01 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/14 23:09:21 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/16 03:54:01 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	_exec_unsigned(struct s_spec_info *s, va_list *param, \
 	n = va_arg(*param, unsigned int);
 	s->current_size = len_unsigned(n, base);
 	s->is_null = n == 0;
+	if (s->sharp && !s->is_null)
+		s->current_size += 2;
 	return (print_algo_flag(s, n, base, lower));
 }
 

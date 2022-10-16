@@ -6,58 +6,70 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:18:01 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/14 22:23:29 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/16 04:01:58 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+#define MIN(a, b) (a > b) ? b : a
+
 static \
 int	print_width_precision(const struct s_spec_info *s)
 {
 	int	width;
+	int	c;
 
+	c = ' ';
+	if (s->with_leading_zeroes)
+		c = '0';
 	width = (s->width - s->current_size);
-	if (s->width > 0 && s->precision_is_specified && (s->precision == -1 || s->width > s->precision))
+	if (s->width > 0 && s->precision_is_specified && \
+			(s->precision == -1 || s->width > s->precision))
 	{
 		width = s->width;
 		if (s->width > s->precision && s->precision != -1)
-			width -= s->precision;
-		return (print_width(width, ' '));
+			width -= MIN(s->precision, s->current_size);
+		return (print_width(width, c));
 	}
-	return (print_width(width, ' '));
+	return (print_width(width, c));
 }
 
 int	exec_char(va_list *param, struct s_spec_info *s)
 {
 	s->current_size = 1;
 	if (s->is_left_aligned)
-		return (ft_putchar((uintptr_t)va_arg(*param, int)) + print_width_precision(s));
-	return (print_width_precision(s) + ft_putchar((uintptr_t)va_arg(*param, int)));
+		return (ft_putchar(va_arg(*param, int)) \
+					+ print_width_precision(s));
+	return (print_width_precision(s) + \
+				ft_putchar(va_arg(*param, int)));
 }
 
 int	exec_percent(va_list *param, struct s_spec_info *s)
 {
 	(void)param;
-	if (!s->is_left_aligned)
-		return (print_width(s->width - 1, ' ') + ft_putchar('%'));
-	return (ft_putchar('%') + print_width(s->width - 1, ' '));
+	s->current_size = 1;
+	if (s->is_left_aligned)
+		return (ft_putchar('%') \
+					+ print_width_precision(s));
+	return (print_width_precision(s) + \
+				ft_putchar('%'));
 }
 
 int	exec_string(va_list *param, struct s_spec_info *s)
 {
 	const char	*str;
 	int			i;
-	int			written = 0;
+	int			written;
 
 	str = va_arg(*param, const char *);
 	if (!str)
 		str = "(null)";
 	i = ft_strlen(str);
 	s->current_size = i;
+	written = 0;
 	if ((s->space && !s->is_left_aligned && i > 0 && !*str))
 		written = ft_putchar(' ');
-
 	if (!s->is_left_aligned)
 		written += print_width_precision(s);
 	if (s->precision_is_specified)

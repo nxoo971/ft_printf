@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 02:30:59 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/14 03:17:42 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/16 03:51:32 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	print_prefix(const struct s_spec_info *s)
 {
-    static const int    current_type[2] = {'x', 'X'};
-	int                 written;
+	static const int	current_type[2] = {'x', 'X'};
+	int					written;
 
 	written = 0;
 	if ((s->sharp && !s->is_null) || s->current_type == 'p')
@@ -30,7 +30,8 @@ int	print_sign(const struct s_spec_info *s)
 {
 	if (s->is_negative)
 		return (ft_putchar('-'));
-	if (s->plus && !s->is_negative)
+	if (s->plus && !s->is_negative && \
+		(s->current_type == 'd' || s->current_type == 'i'))
 		return (ft_putchar('+'));
 	return (0);
 }

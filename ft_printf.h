@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 01:05:34 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/14 23:15:55 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/15 02:28:52 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ t_bool				accept_width_char(struct s_spec_info *s, char c);
 t_bool				accept_precision_char(struct s_spec_info *s, char c);
 t_bool				accept_type_char(struct s_spec_info *s, char c);
 // algo_flag.c
-int					print_algo_flag(const struct s_spec_info *s, uintptr_t n, int base, t_bool lower);
+int					print_algo_flag(const struct s_spec_info *s, \
+										uintptr_t n, int base, t_bool lower);
 // print.c
 int					print_prefix(const struct s_spec_info *s);
 int					print_sign(const struct s_spec_info *s);
@@ -83,6 +84,8 @@ int					exec_pointer(va_list *param, struct s_spec_info *s);
 int					exec_unsigned(va_list *param, struct s_spec_info *s);
 int					exec_lowerhexa(va_list *param, struct s_spec_info *s);
 int					exec_upperhexa(va_list *param, struct s_spec_info *s);
+// exec_float.c
+int					exec_double(va_list *param, struct s_spec_info *s);
 // exec_string.c
 int					exec_char(va_list *param, struct s_spec_info *s);
 int					exec_percent(va_list *param, struct s_spec_info *s);

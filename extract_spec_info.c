@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:06:24 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/14 22:22:38 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/16 03:54:27 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ struct s_spec_info	extract_spec_info(const char *start, const char *end)
 	s = init_spec();
 	while (accept_flag_char(&s, *p))
 		p++;
-	if (*p == '0')
-		s.with_leading_zeroes = vrai;
 	while (accept_width_char(&s, *p))
 		p++;
 	if (*p == '.')
