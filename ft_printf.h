@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 01:05:34 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/15 02:28:52 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/17 02:31:58 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ struct s_spec_info {
 	t_bool	plus;
 	t_bool	space;
 	t_bool	sharp;
+	t_bool	all;
 
 	t_bool	width_is_specified;
 	int		width;
@@ -79,6 +80,10 @@ int					print_sign(const struct s_spec_info *s);
 int					print_width(int width, int c);
 // exec_integer.c
 int					exec_integer(va_list *param, struct s_spec_info *s);
+// exec_octal.c
+int					exec_octal(va_list *param, struct s_spec_info *s);
+// exec_binary.c
+int					exec_binary(va_list *param, struct s_spec_info *s);
 // exec_unsigned.c
 int					exec_pointer(va_list *param, struct s_spec_info *s);
 int					exec_unsigned(va_list *param, struct s_spec_info *s);
@@ -91,8 +96,7 @@ int					exec_char(va_list *param, struct s_spec_info *s);
 int					exec_percent(va_list *param, struct s_spec_info *s);
 int					exec_string(va_list *param, struct s_spec_info *s);
 // operations.c
-int					divide_unsigned_apply_f(uintptr_t n, int base, \
-												t_bool lower);
+int					print_n_base(uintptr_t n, int base, t_bool lower);
 // puts.c
 int					ft_putchar(int c);
 int					ft_putstr(const char *s);

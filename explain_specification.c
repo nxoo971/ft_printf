@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 02:04:09 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/15 01:12:09 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/16 20:47:15 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	explain_specification(const char *start, const char *end, va_list *param)
 	['x'] = & exec_lowerhexa,
 	['X'] = & exec_upperhexa,
 	['f'] = & exec_double,
+	['o'] = & exec_octal,
+	['b'] = & exec_binary,
 	['%'] = & exec_percent,
 	};
 

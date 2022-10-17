@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:18:01 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/16 03:54:01 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/17 00:47:11 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	exec_pointer(va_list *param, struct s_spec_info *s)
 
 	n = (uintptr_t)va_arg(*param, void *);
 	s->current_size = len_unsigned(n, 16) + 2;
+	if (s->plus)
+		s->plus = faux;
 	if (s->precision > 0 && s->with_leading_zeroes)
 		s->current_size -= 2;
 	return (print_algo_flag(s, n, 16, vrai));

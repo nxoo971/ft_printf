@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 01:05:09 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/16 03:02:36 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/16 20:50:35 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static int	is_type(char c)
 	['x'] = "unsigned hexa",
 	['X'] = "unsigned hexa",
 	['f'] = "float / double",
+	['o'] = "octal",
+	['b'] = "binary",
 	['%'] = "percent",
 	};
 

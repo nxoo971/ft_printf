@@ -6,40 +6,36 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 00:40:19 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/16 04:01:44 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/17 03:18:39 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#define DEFAULT_SIZE	6
-/*
-static \
-int	print_zero(int width)
-{
-	int	written;
-
-	written = 0;
-	while (--width >= 0)
-		written += ft_putchar('0');
-	return (written);
-}*/
-
 int	exec_double(va_list *param, struct s_spec_info *s)
 {
-	(void)s;
 	double	n;
-	int		written = 0;
+	int		count;
+	int		written;
 
 	n = va_arg(*param, double);
-	written += ft_printf("%d.", (int)n);
-    n -= (int)n;
-    int count = 6;
-    while(n - (int)n < 1 && count > 0) {
-        n *= 10;
-      written += ft_putchar((int)n+'0');
-       n -= (int)n;
-        count--;
-   }
-   return (written);
+	written = print_n_base((int)n, 10, faux);
+	n -= (int)n;
+	count = 6;
+	if (s->precision >= 0)
+		count = s->precision;
+	if (s->width_is_specified && s->width >= 0)
+		count = s->width;
+	if (s->precision >= 0 || n == 0)
+		written += ft_putchar('.');
+	if (s->precision_is_specified && s->precision == -1)
+		count = 0;
+	while (n - (int)n < 1 && count > 0)
+	{
+		n *= 10;
+		written += ft_putchar((int)n + '0');
+		n -= (int)n;
+		count--;
+	}
+	return (written);
 }

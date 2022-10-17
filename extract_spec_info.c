@@ -6,13 +6,14 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:06:24 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/16 03:54:27 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/17 03:20:39 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static struct s_spec_info	init_spec(void)
+static \
+struct s_spec_info	init_spec(void)
 {
 	static const struct s_spec_info	s = {
 		.is_left_aligned = faux,
@@ -36,6 +37,16 @@ static struct s_spec_info	init_spec(void)
 	return (s);
 }
 
+static \
+void	pre_check(struct s_spec_info *s)
+{
+	s->all = (s->space && s->plus && s->is_left_aligned && s->sharp);
+	if (s->plus && s->current_type != 'd' && s->current_type != 'i')
+		s->plus = faux;
+	if (s->sharp && s->current_type != 'x' && s->current_type != 'X')
+		s->sharp = faux;
+}
+
 struct s_spec_info	extract_spec_info(const char *start, const char *end)
 {
 	struct s_spec_info			s;
@@ -57,5 +68,6 @@ struct s_spec_info	extract_spec_info(const char *start, const char *end)
 	while (accept_type_char(&s, *p))
 		p++;
 	s.current_type = end[-1];
+	pre_check(&s);
 	return (s);
 }

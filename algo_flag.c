@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 02:33:37 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/16 04:01:09 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/17 02:32:22 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,27 @@ int	precision_is_not_specified(const struct s_spec_info *s, \
 	{
 		if (s->current_size <= s->width)
 		{
-			width = (s->width - s->current_size);
+			width = (s->width - s->current_size) + s->all;
 			width -= (s->space && !s->plus);
 			if (s->space && s->is_negative && !s->is_null)
 				width += 1;
 			if (s->current_type == 'd' || s->current_type == 'i')
+			{
 				width -= (s->plus && !s->space && !s->is_negative);
+				if (s->all)
+					width -= 2;
+			}
 		}
 		if (!s->with_leading_zeroes || (s->with_leading_zeroes && s->is_left_aligned))
 			c = ' ';
 	}
 	if (!s->with_leading_zeroes && s->is_left_aligned)
-		return (print_sign(s) + print_prefix(s) + divide_unsigned_apply_f(n, base, lower) + print_width(width, c));
+		return (print_sign(s) + print_prefix(s) + print_n_base(n, base, lower) + print_width(width, c));
 	if (!s->with_leading_zeroes)
-	{
-		//printf("tst454 - %d\n\n", s->width);
-		return (print_width(width, c) + print_prefix(s) + print_sign(s) + divide_unsigned_apply_f(n, base, lower));
-	}
+		return (print_width(width, c) + print_prefix(s) + print_sign(s) + print_n_base(n, base, lower));
 	if (s->is_left_aligned)
-		return (print_sign(s) + print_prefix(s) + divide_unsigned_apply_f(n, base, lower) + print_width(width, c));
-	return (print_sign(s) + print_prefix(s) + print_width(width, c) + divide_unsigned_apply_f(n, base, lower));
+		return (print_sign(s) + print_prefix(s) + print_n_base(n, base, lower) + print_width(width, c));
+	return (print_sign(s) + print_prefix(s) + print_width(width, c) + print_n_base(n, base, lower));
 }
 
 static \
@@ -67,13 +68,13 @@ int	precision_is_specified_and_greater_than_currentsize(\
 
 	written += print_sign(s) + print_prefix(s);
 	if (s->is_left_aligned && !prec)
-		return (written + divide_unsigned_apply_f(n, base, lower) + print_width(width, ' '));
+		return (written + print_n_base(n, base, lower) + print_width(width, ' '));
 
 	written += print_width(prec, '0');
 	if (s->is_left_aligned && prec)
-		return (written + divide_unsigned_apply_f(n, base, lower) + print_width(width, ' '));
+		return (written + print_n_base(n, base, lower) + print_width(width, ' '));
 
-	return (written + divide_unsigned_apply_f(n, base, lower));
+	return (written + print_n_base(n, base, lower));
 }
 
 static \
@@ -106,16 +107,17 @@ int	width_is_specified_and_greater_than_currentsize(const struct s_spec_info *s,
 
 		if (s->is_left_aligned)
 		{
-			if (!s->is_null)
-				written += divide_unsigned_apply_f(n, base, lower);
+			if (!s->is_null || (s->is_null && s->precision > 0))
+				written += print_n_base(n, base, lower);
 			return (written + print_width(width, ' '));
 		}
 	}
 	else
 		written += print_sign(s) + print_prefix(s);
+
 	if (s->precision <= 0 && s->is_null)
 		return (written);
-	return (written + divide_unsigned_apply_f(n, base, lower));
+	return (written + print_n_base(n, base, lower));
 }
 
 int	print_algo_flag(const struct s_spec_info *s, uintptr_t n, int base, t_bool lower)

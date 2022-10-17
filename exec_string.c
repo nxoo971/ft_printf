@@ -6,13 +6,13 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:18:01 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/16 04:01:58 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/16 23:48:46 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-#define MIN(a, b) (a > b) ? b : a
+#define MIN(a, b) ((a > b) ? b : a)
 
 static \
 int	print_width_precision(const struct s_spec_info *s)
@@ -22,7 +22,10 @@ int	print_width_precision(const struct s_spec_info *s)
 
 	c = ' ';
 	if (s->with_leading_zeroes)
-		c = '0';
+	{
+		if (!s->is_left_aligned)
+			c = '0';
+	}
 	width = (s->width - s->current_size);
 	if (s->width > 0 && s->precision_is_specified && \
 			(s->precision == -1 || s->width > s->precision))
