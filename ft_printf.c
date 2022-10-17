@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 01:05:09 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/16 20:50:35 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/17 21:28:24 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,10 @@
 
 static int	print_substring(const char *start, const char *end)
 {
-	const char	*p;
-
-	p = start;
-	while (p < end)
-		ft_putchar(*p++);
-	return (p - start);
+	return (ft_putnstr(start, end - start));
 }
 
-static int	is_type(char c)
+static int	is_specifier(char c)
 {
 	static const char *const	names[256] = {
 	['c'] = "char",
@@ -59,7 +54,7 @@ static t_bool	case_string_specification(const char **start, const char **end, \
 	}
 	else if (e_state == SPECIFICATION)
 	{
-		if (is_type(**end))
+		if (is_specifier(**end))
 		{
 			*len += explain_specification(*start, *end + 1, params);
 			e_state = STRING;
@@ -86,6 +81,8 @@ static void	main_printf(const char *start, const char *end, \
 					print_substring(start, tmp);
 					start = tmp;
 				}
+				if (end[-1] == '{')
+					print_substring(start - 1, end + 1);
 				if (explain_color(start, end + 1))
 					e_state = STRING;
 				else

@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 22:26:55 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/14 23:14:47 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/17 20:51:34 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,4 @@ int	ft_putnstr(const char *s, int len)
 	while (s[i] && i < len)
 		i++;
 	return (write(1, s, i));
-}
-
-void	put_integer(const int c, const char *sbase, const int base)
-{
-	ft_putchar(sbase[c % base]);
 }

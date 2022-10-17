@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 01:05:34 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/17 02:31:58 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/17 20:52:29 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ int					print_n_base(uintptr_t n, int base, t_bool lower);
 int					ft_putchar(int c);
 int					ft_putstr(const char *s);
 int					ft_putnstr(const char *s, int len);
-void				put_integer(const int c, const char *sbase, const int base);
-
 // calc_len.c
 int					len_unsigned(uintptr_t nb, const int base);
 int					len_integer(intptr_t nb, const int base);

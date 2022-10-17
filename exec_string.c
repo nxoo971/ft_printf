@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:18:01 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/16 23:48:46 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/17 19:57:43 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ int	exec_percent(va_list *param, struct s_spec_info *s)
 	(void)param;
 	s->current_size = 1;
 	if (s->is_left_aligned)
-		return (ft_putchar('%') \
-					+ print_width_precision(s));
-	return (print_width_precision(s) + \
-				ft_putchar('%'));
+		return (ft_putchar('%') + print_width_precision(s));
+	return (print_width_precision(s) + ft_putchar('%'));
 }
 
 int	exec_string(va_list *param, struct s_spec_info *s)
@@ -71,7 +69,7 @@ int	exec_string(va_list *param, struct s_spec_info *s)
 	i = ft_strlen(str);
 	s->current_size = i;
 	written = 0;
-	if ((s->space && !s->is_left_aligned && i > 0 && !*str))
+	if (s->space && !s->is_left_aligned && i > 0 && !*str)
 		written = ft_putchar(' ');
 	if (!s->is_left_aligned)
 		written += print_width_precision(s);

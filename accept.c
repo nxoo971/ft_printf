@@ -6,7 +6,7 @@
 /*   By: nxoo <nxoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 21:06:24 by nxoo              #+#    #+#             */
-/*   Updated: 2022/10/16 03:48:17 by nxoo             ###   ########.fr       */
+/*   Updated: 2022/10/17 21:31:50 by nxoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ t_bool	accept_flag_char(struct s_spec_info *s, char c)
 	else if (c == '+')
 		s->plus = vrai;
 	else if (c == ' ' && !s->plus)
-	{
 		s->space = vrai;
-		s->plus = faux;
-	}
 	else if (c == '0')
 		s->with_leading_zeroes = vrai;
 	else
